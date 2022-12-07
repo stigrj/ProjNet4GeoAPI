@@ -645,6 +645,288 @@ namespace ProjNET.Tests
         }
 
 		[Test]
+		public void TestProjectedCircle()
+        {
+            string geoid = "" +
+                "GEOGCS[\"WGS 84\"," +
+                "DATUM[\"WGS_1984\"," +
+                "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                "PRIMEM[\"Greenwich\",0," +
+                "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                "UNIT[\"degree\",0.01745329251994328," +
+                "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                "AUTHORITY[\"EPSG\",\"4326\"]]";
+
+            // string geoid = "SPHEROID[\"GRS 1980\",6378137,298.257222101, AUTHORITY[\"EPSG\",\"7019\"]]";
+
+            string proj = "" +
+                          // "PROJCS[\"WGS 84 / Polar Stereographic\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4326\"]]," +
+                          // "PROJECTION[\"Polar_Stereographic\"]," +
+                          // "PARAMETER[\"latitude_of_origin\",66.5]," +
+                          // "PARAMETER[\"central_meridian\",15]," +
+                          // "PARAMETER[\"scale_factor\",0.994]," +
+                          // "PARAMETER[\"false_easting\",2000000]," +
+                          // "PARAMETER[\"false_northing\",2000000]," +
+                          // "UNIT[\"metre\",1," +
+                          // "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"32661\"]]";
+
+                          // "PROJCS[\"WGS 84 / Oceanbox Hotine Oblique Mercator\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4759\"]]," +
+                          // "PROJECTION[\"Hotine_Oblique_Mercator\"]," +
+                          // "PARAMETER[\"latitude_of_center\",65.0]," +
+                          // "PARAMETER[\"longitude_of_center\",12.5]," +
+                          // "PARAMETER[\"azimuth\",34.0]," +
+                          // "PARAMETER[\"rectified_grid_angle\",34.0]," +
+                          // "PARAMETER[\"scale_factor\",0.998]," +
+                          // "PARAMETER[\"false_easting\",0]," +
+                          // "PARAMETER[\"false_northing\",0]," +
+                          // "UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AXIS[\"X\",EAST]," +
+                          // "AXIS[\"Y\",NORTH]";
+
+                          // "PROJCS[\"WGS 84 / Norway Transverse Mercator\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4326\"]]," +
+                          // "PROJECTION[\"Transverse_Mercator\"]," +
+                          // "PARAMETER[\"latitude_of_origin\",65]," +
+                          // "PARAMETER[\"central_meridian\",26.0]," +
+                          // "PARAMETER[\"scale_factor\",0.998]," +
+                          // "PARAMETER[\"false_easting\",0]," +
+                          // "PARAMETER[\"false_northing\",0]," +
+                          // "UNIT[\"metre\",1," +
+                          // "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AXIS[\"X\",EAST]," +
+                          // "AXIS[\"Y\",NORTH]]";
+
+                          // "PROJCS[\"WGS 84 / Oblique Stereographic\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4326\"]]," +
+                          // "PROJECTION[\"Oblique_Stereographic\"]," +
+                          // "PARAMETER[\"latitude_of_origin\",66.5]," +
+                          // "PARAMETER[\"central_meridian\",15]," +
+                          // "PARAMETER[\"false_easting\",0]," +
+                          // "PARAMETER[\"false_northing\",0]," +
+                          // "UNIT[\"metre\",1," +
+                          // "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"3995\"]]";
+
+                          // "PROJCS[\"WGS 84 / UTM zone 33N\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4326\"]]," +
+                          // "PROJECTION[\"Transverse_Mercator\"]," +
+                          // "PARAMETER[\"latitude_of_origin\",0]," +
+                          // "PARAMETER[\"central_meridian\",15.5]," +
+                          // "PARAMETER[\"scale_factor\",0.995]," +
+                          // "PARAMETER[\"false_easting\",500000]," +
+                          // "PARAMETER[\"false_northing\",0]," +
+                          // "UNIT[\"metre\",1," +
+                          // "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AXIS[\"Easting\",EAST]," +
+                          // "AXIS[\"Northing\",NORTH]," +
+                          // "AUTHORITY[\"EPSG\",\"32633\"]]";
+
+                          // "PROJCS[\"WGS 84 / Pseudo-Mercator\"," +
+                          // "GEOGCS[\"WGS 84\"," +
+                          // "DATUM[\"WGS_1984\"," +
+                          // "SPHEROID[\"WGS 84\",6378137,298.257223563," +
+                          // "AUTHORITY[\"EPSG\",\"7030\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"6326\"]]," +
+                          // "PRIMEM[\"Greenwich\",0," +
+                          // "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          // "UNIT[\"degree\",0.0174532925199433," +
+                          // "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          // "AUTHORITY[\"EPSG\",\"4326\"]]," +
+                          // "PROJECTION[\"Mercator_1SP\"]," +
+                          // "PARAMETER[\"central_meridian\",15]," +
+                          // "PARAMETER[\"scale_factor\",0.40]," +
+                          // "PARAMETER[\"false_easting\",0]," +
+                          // "PARAMETER[\"false_northing\",0]," +
+                          // "UNIT[\"metre\",1," +
+                          // "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          // "AXIS[\"Easting\",EAST]," +
+                          // "AXIS[\"Northing\",NORTH]," +
+                          // "EXTENSION[\"PROJ4\",\"+proj=merc +a=6378137 +b=6378137 +lat_ts=0 +lon_0=0 +x_0=0 +y_0=0 +k=1 +units=m +nadgrids=@null +wktext +no_defs\"]," +
+                          // "AUTHORITY[\"EPSG\",\"3857\"]]";
+
+                          "PROJCS[\"ISN93 / Lambert 1993\"," +
+                          "GEOGCS[\"ISN93\"," +
+                          "DATUM[\"Islands_Net_1993\"," +
+                          "SPHEROID[\"GRS 1980\",6378137,298.257222101]," +
+                          "TOWGS84[0,0,0,0,0,0,0]]," +
+                          "PRIMEM[\"Greenwich\",0," +
+                          "AUTHORITY[\"EPSG\",\"8901\"]]," +
+                          "UNIT[\"degree\",0.0174532925199433," +
+                          "AUTHORITY[\"EPSG\",\"9122\"]]," +
+                          "AUTHORITY[\"EPSG\",\"4659\"]]," +
+                          "PROJECTION[\"Lambert_Conformal_Conic_2SP\"]," +
+                          "PARAMETER[\"latitude_of_origin\",60.0]," +
+                          "PARAMETER[\"central_meridian\",12.5]," +
+                          "PARAMETER[\"standard_parallel_1\",56.00]," +
+                          "PARAMETER[\"standard_parallel_2\",64.00]," +
+                          "PARAMETER[\"false_easting\",0]," +
+                          "PARAMETER[\"false_northing\",0]," +
+                          "UNIT[\"metre\",1," +
+                          "AUTHORITY[\"EPSG\",\"9001\"]]," +
+                          "AXIS[\"Easting\",EAST]," +
+                          "AXIS[\"Northing\",NORTH]," +
+                          "AUTHORITY[\"EPSG\",\"3057\"]]";
+
+            var cs1 = CoordinateSystemFactory.CreateFromWkt(geoid);
+            var cs2 = CoordinateSystemFactory.CreateFromWkt(proj);
+            var ctf = new CoordinateTransformationFactory();
+
+            var ict = ctf.CreateFromCoordinateSystems(cs1, cs2);
+
+            double r = 100000.0;
+            double R = 6378137.0;
+            double degToRad = 2.0 * Math.PI / 360.0;
+            double radToDeg = 1.0 / degToRad;
+            double rho = 2.0 * Math.Asin(r / (2.0 * R));
+            double phi1 = Math.PI / 2.0 - rho;
+
+            for (int i = 0; i < 11; ++i)
+            {
+                double lat_0 = 0.0, lon_0 = 0.0;
+                string name = "";
+                switch (i)
+                {
+                    case 0:
+                        name = "kirkenes";
+                        lon_0 = 32.50;
+                        lat_0 = 70.00;
+                        break;
+                    case 1:
+                        name = "honningsvag";
+                        lon_0 = 26.00;
+                        lat_0 = 71.00;
+                        break;
+                    case 2:
+                        name = "senja";
+                        lon_0 = 16.50;
+                        lat_0 = 69.00;
+                        break;
+                    case 3:
+                        name = "lofoten";
+                        lon_0 = 13.00;
+                        lat_0 = 68.00;
+                        break;
+                    case 4:
+                        name = "vega";
+                        lon_0 = 10.50;
+                        lat_0 = 67.00;
+                        break;
+                    case 5:
+                        name = "trondheim";
+                        lon_0 = 10.50;
+                        lat_0 = 63.50;
+                        break;
+                    case 6:
+                        name = "stad";
+                        lon_0 = 12.50;
+                        lat_0 = 62.00;
+                        break;
+                    case 7:
+                        name = "sognefjorden";
+                        lon_0 = 12.50;
+                        lat_0 = 61.00;
+                        break;
+                    case 8:
+                        name = "stavanger";
+                        lon_0 = 12.50;
+                        lat_0 = 59.00;
+                        break;
+                    case 9:
+                        name = "kristiansand";
+                        lon_0 = 12.50;
+                        lat_0 = 58.00;
+                        break;
+                    case 10:
+                        name = "moss";
+                        lon_0 = 12.50;
+                        lat_0 = 60.00;
+                        break;
+                }
+
+                double[] lonlat0 = { lon_0, lat_0 };
+                double[] xy0 = ict.MathTransform.Transform(lonlat0);
+                Console.WriteLine($"origin : {xy0[0]}  {xy0[1]}");
+                Console.WriteLine($"{name} lon{lon_0}, lat{lat_0}, x, y, r");
+                int N = 128;
+                for (int n = 0; n < N; ++n)
+                {
+                    double t = 2.0 * Math.PI * n / N;
+                    double x1 = R * Math.Cos(phi1) * Math.Cos(t);
+                    double y1 = R * Math.Cos(phi1) * Math.Sin(t);
+                    double z1 = R * Math.Sin(phi1);
+
+                    double dPhi = (90.0 - lat_0) * degToRad;
+                    double x2 = x1 * Math.Cos(dPhi) + z1 * Math.Sin(dPhi);
+                    double y2 = y1;
+                    double z2 = z1 * Math.Cos(dPhi) - x1 * Math.Sin(dPhi);
+
+                    double lam = lon_0 * degToRad;
+                    double x3 = x2 * Math.Cos(lam) - y2 * Math.Sin(lam);
+                    double y3 = y2 * Math.Cos(lam) + x2 * Math.Sin(lam);
+                    double z3 = z2;
+
+                    double lat_n = Math.Asin(z3 / R) * radToDeg;
+                    double lon_n = Math.Atan(y3 / x3) * radToDeg;
+                    double[] lonlat = { lon_n, lat_n };
+                    double[] xy = ict.MathTransform.Transform(lonlat);
+                    double radius = Math.Sqrt(Math.Pow(xy[0] - xy0[0], 2.0) + Math.Pow(xy[1] - xy0[1], 2.0));
+                    Console.WriteLine($"{xy0[0]}, {xy0[1]}, {xy[0]}, {xy[1]}, {radius}");
+                }
+            }
+            Assert.AreEqual(0, 1);
+		}
+
+		[Test]
 		public void TestUniversalPolarStereographicProjection()
 		{
             //test data from http://epsg.io/transform
